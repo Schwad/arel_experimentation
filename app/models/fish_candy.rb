@@ -1,0 +1,2 @@
+class FishCandy < ApplicationRecord
+end
