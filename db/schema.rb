@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_04_104727) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_06_144113) do
   create_table "candies", force: :cascade do |t|
-    t.string "type"
     t.integer "calories"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "variety"
   end
 
   create_table "fish", force: :cascade do |t|
@@ -33,4 +33,27 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_04_104727) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "members", force: :cascade do |t|
+    t.text "name"
+    t.integer "trinket_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["trinket_id"], name: "index_members_on_trinket_id"
+  end
+
+  create_table "tbl1", id: false, force: :cascade do |t|
+    t.text "one"
+    t.integer "two"
+  end
+
+  create_table "trinkets", force: :cascade do |t|
+    t.text "name"
+    t.integer "fish_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fish_id"], name: "index_trinkets_on_fish_id"
+  end
+
+  add_foreign_key "members", "trinkets"
+  add_foreign_key "trinkets", "fish"
 end
