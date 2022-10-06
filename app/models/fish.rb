@@ -9,7 +9,7 @@ class Fish < ApplicationRecord
   ### joins ###
   scope :with_candy, -> { joins(:candies).distinct }
   scope :with_trinket, -> { joins(:trinkets).distinct }
-  scope :with_trinket_with_member, -> { joins(trinkets: [:members]) }
+  scope :with_trinket_with_member, -> { joins(trinkets: [:members]) } # This loads extra because no distinct ;)
 
   # Fish has many trinkets has many members. Give me the fish that have trinkets named Tony and members named Bart.
   scope :with_some_qualification_on_trinket_and_member, -> do
@@ -20,7 +20,7 @@ class Fish < ApplicationRecord
     joins(trinkets: [:members]).where("members.name = 'Bart' AND trinkets.name = 'Tony'")
   end
 
-  def scoping_just_as_easily_with_a_method
+  def self.scoping_just_as_easily_with_a_method
     joins(:candies).distinct
   end
 
