@@ -38,10 +38,33 @@ class Fish < ApplicationRecord
 
   # not, or
 
+  scope :or_stuff, -> do
+    where(fins: true).or(
+      where("age > ?", 10)
+    )
+  end
+
+  scope :and_stuff, -> do
+    where(fins: true).or(
+      where("age > ?", 10)
+    )
+  end
+
   ### misc ###
 
   # stabby with arg is -> (arg) { ... }
   scope :using_a_lambda_and_an_arg, lambda { |some_arg| where(fins: some_arg) }
+
+  ### Arel ###
+
+  # Arel is a DSL for building SQL queries. It's a bit like ActiveRecord::Relation, but it's not tied to a model.
+  # Arel is a gem, so you need to add it to your Gemfile.
+  #
+  # Arel is useful when you want to build a query that ActiveRecord doesn't support.
+  # For example, if you want to do a full text search, you can't do that with ActiveRecord.
+  # You can do it with Arel.
+  # ^^^ copilot lol
+
 
   ### Extra credit on joins ###
 
